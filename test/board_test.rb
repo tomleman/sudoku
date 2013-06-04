@@ -31,6 +31,11 @@ class BoardTest < MiniTest::Unit::TestCase
 	def test_column_length
 		assert_equal @column.length, 9
 	end
+	
+
+	def test_box_contains_9_cells
+		assert_equal @board.box.length, 9
+	end
 
 
 	# def test_box_contains_1_to_9
