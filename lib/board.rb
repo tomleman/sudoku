@@ -11,7 +11,7 @@ class Board
 	end
 
 	def cell
-		@cell 
+		@cell = nil
 	end
 
 
