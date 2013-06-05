@@ -1,0 +1,44 @@
+require '../lib/cell'
+require 'minitest/autorun'
+
+class CellTest < MiniTest::Unit::TestCase
+	
+	def setup
+		@cell = Cell.new(0)
+
+	end
+
+	def test_cell_can_have_a_value
+		cell = Cell.new(5)
+		assert_equal 5, cell.value
+	end
+
+	def test_cell_is_solved_if_it_has_a_value
+		cell = Cell.new(5)
+		assert cell.solved?
+	end
+
+	def test_cell_is_solved_if_it_has_no_value
+		cell = Cell.new(0)
+		refute cell.solved?
+	end
+
+	def test_cell_can_determine_own_value
+		cell = Cell.new(0)
+		column = [1,2,3].map{|n| Cell.new(n)}
+		row = [4,6].map{|n| Cell.new(n)}
+		box = [7,8,9].map{|n| Cell.new(n)}
+		cell.update(column + row + box)
+		assert cell.solved?
+		assert_equal 5, cell.value
+	end
+
+	def test_cell_cannot_determine_value_if_there_are_few_neighbours
+		cell = Cell.new(0)
+		g = [1,2,3,4,6,8,9].map{|n| Cell.new(n)}
+		cell.update(g)
+		assert_equal 0, cell.value
+	end
+
+end
+

@@ -1,48 +1,48 @@
+require '../lib/box'
+
 class Board
 
-	def initialize
-		@input = "409075310130600807005200096016009720080020606007430000500107040720048009603050008"
+	def initialize(input)
+		@grid = input.split('').map{|n| Cell.new(n.to_i)}
 	end
 
 
-	def grid
-		@grid = (0..80).to_a
+	def rows(cell_index)
+		column_no = cell_index % 9
+
+		first = cell_index - column_no 
+		
+		return @grid[first,9]
+
+	end
+	def columns(cell_index)
+		
+		column_no = cell_index % 9
+		result = []
+		8.times do |i|
+			result << 9 + column_no.last
+		end 
+		
+
+	end
+
+		# column no + 9. 9times == array
+					
+
+	def boxes(cell_index)
+		column_no = cell_index % 9
+		box_row_index = cell_index / 27 
+		box_column_index = column_no / 3  
+		box_first = box_row_index * 27 + (box_column_index * 3)
+		return @grid.box_first
 		
 	end
 
-	def cell
-		@cell = nil
-	end
 
-
-	def row
-
-		row_array = grid.each_slice(9).to_a
-
-		
-	end
-
-	def column
-		@columns = (0..8).map do |col|
-			@grid.select{|i| i % 9 == col}
-		end
-	end
-
-	def box
-		# vv-- row index --vv
-		row_value = @cell / 9
-		column_value = @cell % 9
-
-		row_first = row_value * 9
-		box_row = @cell / 27 
-		# 3 is number of columns in a box
-		box_column = column_value / 3
-		box_index = row_first + column_value
-		box_first_result = cell / 27
-		box_first = box_first_res * 27 + (box_column * 3)
-	end
-	
 end
+
+
+
 
 # first element, of first 3 elements in board make up box-1
 
