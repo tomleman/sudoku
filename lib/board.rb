@@ -16,47 +16,27 @@ class Board
 
 	end
 	def columns(cell_index)
-		
 		column_no = cell_index % 9
-		result = []
+		result = [column_no]
 		8.times do |i|
-			result << 9 + column_no.last
-		end 
-		
-
+			result << 9 + result.last
+		end
+		result.map { |index| @grid[index] } 
 	end
 
 		# column no + 9. 9times == array
 					
 
 	def boxes(cell_index)
-		column_no = cell_index % 9
+		box_column_index = (cell_index % 9) / 3
 		box_row_index = cell_index / 27 
-		box_column_index = column_no / 3  
-		box_first = box_row_index * 27 + (box_column_index * 3)
-		return @grid.box_first
 		
+		box_first = box_row_index * 27 + box_column_index * 3
+		
+		# sum = [box_first,1,1,7,1,1,7,1,1].map {|index| index + index}
+		sum = [1,1,7,1,1,7,1,1].inject([box_first]) {|indexes, offset| indexes << offset + indexes.last}
+		sum.map { |index| @grid[index] }		
 	end
 
 
 end
-
-
-
-
-# first element, of first 3 elements in board make up box-1
-
-# def box
-# 	grid.each do |e| 
-# 		e.map {|i| i = [i][i].first }
-# 	end
-# end
-
-# 	def singlecell
-# 		cell = nil
-# 	end
-# end
-
-# Box1,2,3 = Row(0,1,2).@columns
-# Box4,5,6 = row(3,4,5) 0..8
-# Box7,8,9 = row(6,7,8) 0..8 

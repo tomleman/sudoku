@@ -19,12 +19,11 @@ class BoardTest < MiniTest::Unit::TestCase
 
 	def test_column_is_returned_for_a_given_index
 		column = @board.columns(27)
-		assert_equal "410000576", column
+		assert_equal "410000576", column.map{|cell| cell.value}.join
 	end
 
 	def test_box_is_returned_for_a_given_index
-		skip
-		box = @board.boxes(53)
+		box = @board.boxes(40)
 		assert_equal "009020430", box.map {|cell| cell.value}.join
 	end
 
